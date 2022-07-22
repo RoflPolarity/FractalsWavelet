@@ -31,7 +31,11 @@ public class projetion {
             public void actionPerformed(ActionEvent e) {
                 seedValue[0] = Double.parseDouble(seed.getText());
                 hValue[0] = Double.parseDouble(h.getText());
-                getTerrain(seedValue[0], hValue[0]);
+                try {
+                    getTerrain(seedValue[0], hValue[0]);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
                 frame.repaint();
             }
         });
@@ -48,7 +52,7 @@ public class projetion {
         ParamFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ParamFrame.setVisible(true);
     }
-    public static void getTerrain(double seed, double h){
+    public static void getTerrain(double seed, double h) throws InterruptedException {
         Terrain terrain = new Terrain(seed, h);
         Veivlet veivlet = new Veivlet(terrain.getMap());
         double[][] map = veivlet.Dog.Wavelet.get();

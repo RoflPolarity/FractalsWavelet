@@ -4,7 +4,7 @@ public class Veivlet {
     private final int Xdecomposition, Xquantity,Ydecomposition, Yquantity;
     WaveletDOG Dog;
     int[] nX, mX,kX,mY, nY, kY;
-    public Veivlet(double[][] image){
+    public Veivlet(double[][] image) throws InterruptedException {
         Xquantity = image.length;
         Yquantity = image[0].length;
         Xdecomposition = (int) ((Math.log(Xquantity)/Math.log(2))-1);
@@ -16,6 +16,7 @@ public class Veivlet {
         nY = new int[Yquantity];for (int i = 0; i < nY.length; i++)nY[i] = i;
         kY = new int[Yquantity];for (int i = 0; i < kY.length; i++)kY[i] = i;
         Dog = new WaveletDOG(NormFactor(image),kY,mX,nX,Xquantity,kX,Xdecomposition,mY,nY,Yquantity,Ydecomposition);
+        Dog.join();
         }
 
     protected double[][] NormFactor(double[][] pic){
