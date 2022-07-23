@@ -1,21 +1,9 @@
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Veivlet {
-    private final int Xdecomposition, Xquantity,Ydecomposition, Yquantity;
     WaveletDOG Dog;
-    int[] nX, mX,kX,mY, nY, kY;
     public Veivlet(double[][] image) throws InterruptedException {
-        Xquantity = image.length;
-        Yquantity = image[0].length;
-        Xdecomposition = (int) ((Math.log(Xquantity)/Math.log(2))-1);
-        Ydecomposition = (int) ((Math.log(Yquantity)/Math.log(2))-1);
-        nX = new int[Xquantity];for (int i = 0; i < nX.length; i++)nX[i] = i;
-        mX = new int[Xdecomposition+1];for (int i = 0; i < mX.length; i++)mX[i] = i;
-        kX = new int[Xquantity];for (int i = 0; i < kX.length; i++)kX[i] = i;
-        mY = new int[Ydecomposition+1];for (int i = 0; i<mY.length;i++)mY[i] = i;
-        nY = new int[Yquantity];for (int i = 0; i < nY.length; i++)nY[i] = i;
-        kY = new int[Yquantity];for (int i = 0; i < kY.length; i++)kY[i] = i;
-        Dog = new WaveletDOG(NormFactor(image),kY,mX,nX,Xquantity,kX,Xdecomposition,mY,nY,Yquantity,Ydecomposition);
+        Dog = new WaveletDOG(NormFactor(image));
         Dog.join();
         }
 
@@ -43,18 +31,18 @@ public class Veivlet {
         double[][] normalImage;
         int a = 3, Xquantity, Xdecomposition, Yquantity, Ydecomposition;
         int[] kY,mX,nX, kX, mY, nY;
-        public Wavelet(double[][] normalImage, int[] kY, int[] mX, int[] nX, int Xquantity, int[] kX, int Xdecomposition, int[] mY, int [] nY, int Yquantity, int Ydecomposition){
+        public Wavelet(double[][] normalImage){
             this.normalImage = normalImage;
-            this.kY = kY;
-            this.Ydecomposition = Ydecomposition;
-            this.mX = mX;
-            this.nX = nX;
-            this.kX = kX;
-            this.mY = mY;
-            this.nY = nY;
-            this.Yquantity = Yquantity;
-            this.Xdecomposition = Xdecomposition;
-            this.Xquantity = Xquantity;
+            Xquantity = normalImage.length;
+            Yquantity = normalImage[0].length;
+            Xdecomposition = (int) ((Math.log(Xquantity)/Math.log(2))-1);
+            Ydecomposition = (int) ((Math.log(Yquantity)/Math.log(2))-1);
+            nX = new int[Xquantity];for (int i = 0; i < nX.length; i++)nX[i] = i;
+            mX = new int[Xdecomposition+1];for (int i = 0; i < mX.length; i++)mX[i] = i;
+            kX = new int[Xquantity];for (int i = 0; i < kX.length; i++)kX[i] = i;
+            mY = new int[Ydecomposition+1];for (int i = 0; i<mY.length;i++)mY[i] = i;
+            nY = new int[Yquantity];for (int i = 0; i < nY.length; i++)nY[i] = i;
+            kY = new int[Yquantity];for (int i = 0; i < kY.length; i++)kY[i] = i;
             this.start();
         }
         abstract double WaveletF(double x);
@@ -169,8 +157,8 @@ public class Veivlet {
 
     class WaveletDOG extends Wavelet{
 
-        public WaveletDOG(double[][] normalImage, int[] kY, int[] mX, int[] nX, int Xquantity, int[] kX, int Xdecomposition, int[] mY, int[] nY, int Yquantity, int Ydecomposition) {
-            super(normalImage, kY, mX, nX, Xquantity, kX, Xdecomposition, mY, nY, Yquantity, Ydecomposition);
+        public WaveletDOG(double[][] normalImage) {
+            super(normalImage);
         }
 
         @Override
